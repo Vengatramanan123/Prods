@@ -63,10 +63,13 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Product</a>
                             </li>
                         }
-                        @if(userRole == "Admin")
+                        @if(userRole == "Admin" || userRole == "SuperAdmin")
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="DashBoard" asp-action="Index">DashBoard</a>
                             </li>
                         }
                         else
@@ -76,9 +79,7 @@
                             </li>
                         }
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="DashBoard" asp-action="Index">DashBoard</a>
-                        </li>
+                        
                     </ul>
                     <div class="navbar-nav ">
                         @{
