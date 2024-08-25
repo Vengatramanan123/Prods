@@ -1,0 +1,39 @@
+﻿@model Journal
+
+@{
+    Layout = "_Layout1";
+}
+<form method="post"> 
+    <div class="border p-3 mt-4">
+        <div class="row pb-2 m-2">
+            <h2 class="text-black">Add Journal</h2>
+            <hr />
+        </div>
+        
+        @* <div asp-validation-summary="All"></div> *@
+        <div class="mb-3">
+            <label>Name</label>
+            <input asp-for="Name" type="text" class="form-control"/>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label>Journal Id</label>
+            <input asp-for="OrderId" type="text" class="form-control"/>
+            <span asp-validation-for="OrderId" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary col-lg-12">Submit</button>
+            </div>
+            <div class="col-6">
+                <a asp-controller="Journal" asp-action="Index" class="btn btn-secondary form-control">Back to list</a>
+            </div>
+        </div>
+       
+    </div>
+</form>
+@section Scripts{
+    @{
+        <partial name ="_ValidationScriptsPartial"/>
+    }
+}

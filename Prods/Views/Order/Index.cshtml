@@ -1,0 +1,86 @@
+﻿@model List<Order>
+@using Prods.Utilites;
+@{
+    Layout = "_Layout1";
+    var user = Context.Session.GetString("Username");
+}
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h3>Order Lists</h3>
+        </div>
+        @if (user != "Admin" && user != "SuperAdmin"){
+        <div class="col-6 text-end">
+            <a asp-controller="Order" asp-action="Order" class="btn btn-primary">
+                <i class="bi bi-cart-plus-fill"></i>&nbsp;Raise Order
+            </a>
+        </div>
+        }
+    </div>
+</div>
+<table id="tbl" class="table table-bordered table-striped mt-4">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Product</th>
+            <th>Order Status</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            @if (user != "Admin" && user != "SuperAdmin")
+            {  
+                    <th>Actions</th>
+            }
+            
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td>@obj.Id</td>
+                <td>@obj.ProductName</td>
+                <td>@obj.OrderStatus</td>
+                <td>@obj.quantity</td>
+                <td>@obj.Total</td>
+                @if (user != "Admin" && user != "SuperAdmin")
+                {
+                        <td>
+                            <div class="w-100">
+                            <a asp-controller="Order" asp-action="PayNow" asp-route-id="@obj.Id" class="btn btn-sm btn-success">Pay Now</a>
+                            <a asp-controller="Order" asp-action="Cancel" asp-route-id="@obj.Id" class="btn btn-sm btn-info">Cancel</a>
+
+                            @*  @if(obj.OrderStatus == OrderStatus.paymentreceived)
+                                {
+                                <a asp-controller="Order" asp-action="Cancel" asp-route-id="@obj.Id" class="btn btn-sm btn-info">Cancel</a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Order" asp-action="PayNow" asp-route-id="@obj.Id" class="btn btn-sm btn-success">Pay Now</a>
+                                    <a asp-controller="Order" asp-action="Cancel" asp-route-id="@obj.Id" class="btn btn-sm btn-info">Cancel</a>
+                                } *@
+                        </div>
+                        </td>
+                }
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tbl').DataTable({
+                'paging': true,
+                'searching': true
+            });
+        });
+
+
+    </script>
+
+}

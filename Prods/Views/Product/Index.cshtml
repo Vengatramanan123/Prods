@@ -1,0 +1,74 @@
+﻿@model List<Product>
+@using Prods.Utilites;
+@{
+    Layout = "_Layout1";
+    var user = Context.Session.GetString("Username");
+}
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h3>Product Lists</h3>
+        </div>
+        <div class="col-6 text-end">
+            @if(user=="Admin" || user =="SuperAdmin"){
+            <a asp-controller="Product" asp-action="AddProduct" class="btn btn-primary">
+                <i class="bi bi-cart-plus-fill"></i>&nbsp;Add Product
+            </a>
+            }
+        </div>
+    </div>
+</div>
+    <table id="tbl" class="table table-bordered table-striped mt-4">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                @if(user == "Admin" || user =="SuperAdmin"){
+                <th>Actions</th>
+            }
+                
+            </tr>
+        </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td>@obj.Id</td>
+                <td>@obj.ProductName</td>
+                <td>@obj.Description</td>
+                <td>@obj.Quantity</td>
+                <td>@obj.Price</td>
+                @if(user == "Admin" || user == "SuperAdmin"){
+                <td>
+                    <div class="w-75">
+                        <a asp-controller="Product" asp-action="EditProduct" asp-route-id="@obj.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@obj.Id" class="btn btn-sm btn-danger">Delete</a>
+
+                    </div>
+                </td>
+                }
+            </tr>
+
+        }
+    </tbody>
+    </table>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tbl').DataTable({
+                'paging': true,
+                'searching': true
+            });
+        });
+
+
+    </script>
+
+}

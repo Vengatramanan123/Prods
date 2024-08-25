@@ -1,0 +1,61 @@
+﻿@model Customer
+@{
+    Layout = "_Layout1";
+}
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h3 class="text-black"><i class="bi bi-plus-lg"></i>&nbsp; Add Customer</h3>
+            <hr />
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label>Customer </label>
+                        <input asp-for="CustomerName" type="text" class="form-control" />
+                        <span asp-validation-for="CustomerName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label>Customer Email</label>
+                        <input asp-for="CustomerEmail" type="text" class="form-control" />
+                        <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label>Contact Number</label>
+                        <input asp-for="ContactNumber" type="text" class="form-control" />
+                        <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label>Customer Id</label>
+                        <input asp-for="IdNumber" type="text" class="form-control" />
+                        <span asp-validation-for="IdNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 col-12">
+                    <label>Address</label>
+                    <textarea asp-for="Address" type="text" class="form-control" ></textarea>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success col-lg-12">Submit</button>
+                    </div>
+                    <div class="col-6">
+                        <a asp-controller="Customer" asp-action="Index" class="btn btn-secondary form-control">Back to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* <div asp-validation-summary="All"></div> *@
+
+
+    </div>
+</form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
