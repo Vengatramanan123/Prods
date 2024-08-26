@@ -1,6 +1,6 @@
 ﻿@using Prods.Utilites
 @{
-    var userRole = Context.Session.GetString("UserRole"); // Retrieve the user's role from the session
+    var userRole = Context.Session.GetString("Username"); // Retrieve the user's role from the session
     var userId = Context.Session.GetInt32("UserId"); // Retrieve the user's ID from the session
 }
 
@@ -71,6 +71,7 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="DashBoard" asp-action="Index">DashBoard</a>
                             </li>
+                            
                         }
                         else
                         {

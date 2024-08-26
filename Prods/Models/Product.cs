@@ -16,6 +16,8 @@ namespace Prods.Models
         public double Price { get; set; }
         [ValidateNever]
         public int Quantity { get; set; }
+        [ValidateNever]
+        public string? ImageUrl { get; set; }
         public int? JournalId { get; set; }
         [ForeignKey("JournalId")]
         [ValidateNever]

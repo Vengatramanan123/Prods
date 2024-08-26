@@ -2,37 +2,27 @@
 @{
     Layout = "_Layout1";
 }
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="border p-3 mt-4">
         <div class="row pb-2">
             <h3 class="text-black"><i class="bi bi-plus-lg"></i>&nbsp; Edit Product</h3>
             <hr />
         </div>
         <div class="row">
-            <div class="col-10">
+            <div class="col-12">
                 <div class="row">
                     <div class="mb-3 col-6">
                         <label>Product Name</label>
                         <input asp-for="Id" hidden />
-                        
+                        <input asp-for="ImageUrl" hidden />
                         <input asp-for="ProductName" type="text" class="form-control" />
                         <span asp-validation-for="ProductName" class="text-danger"></span>
                     </div>
+                    <div class="mb-3 col-6">
+                        <label>Upload Image</label>
+                        <input asp-for="ImageUrl" type="file" name="file" class="form-control" />
+                    </div>
                 </div>
-
-                @* <div class="row">
-                <div class="mb-3 col-6">
-                <label>Upload Image</label>
-                <input asp-for="Product.ImageUrl" type="file" name="file" class="form-control" />
-                </div>
-                <div class="mb-3 col-6">
-                <label>Product Category</label>
-                <select asp-for="@Model.Product.CategoryId" asp-items="@Model.CategoryList" type="text" class="form-select">
-                <option disabled selected>--Select Category--</option>
-                </select>
-                <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
-                </div>
-                </div> *@
 
                 <div class="mb-3">
                     <label>Description</label>

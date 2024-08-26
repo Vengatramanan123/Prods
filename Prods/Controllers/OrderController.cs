@@ -94,8 +94,7 @@ namespace Prods.Controllers
                     return NotFound();
                 }
 
-                order.OrderStatus = OrderStatus.ordercancelled;
-
+                order.OrderStatus = OrderStatus.ordercancelled ;
                 _db.Order.Update(order);
             }
             else
@@ -114,8 +113,28 @@ namespace Prods.Controllers
                 }
                 else
                 {
+                    // Refund Options
+                    if (order.OrderStatus == OrderStatus.paymentreceived.ToString())
+                    {
+                        var refund = new RefundCreateOptions
+                        {
+                            Amount = order.Price * 100
+                        };
+                        var refundService = new RefundService();
+                        Refund refundpayment = null;
+
+                        try
+                        {
+                            refundpayment = refundService.Create(refund);
+                        }
+                        catch (StripeException ex)
+                        {
+                            return StatusCode(500, "Failed To Refund");
+                        }
+                    }
+
                     var Order = _db.Order.Get(u => u.Id == id);
-                    order.OrderStatus = OrderStatus.ordercancelled;
+                    order.OrderStatus = OrderStatus.ordercancelled + "." + OrderStatus.paymentreceived;
                     _db.Order.Update(Order);
                 }
             }

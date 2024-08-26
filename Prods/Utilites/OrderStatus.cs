@@ -9,5 +9,6 @@ namespace Prods.Utilites
         public const string ordercancelled = "Order Cancelled";
         public const string orderplacedpaymentpending = "Order Placed. Payment Pending";
         public const string paymentreceived = "Payment Received";
+        public const string paymentrefunded = "Payment Refunded";
     }
 }

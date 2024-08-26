@@ -26,6 +26,7 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Image</th>
                 @if(user == "Admin" || user =="SuperAdmin"){
                 <th>Actions</th>
             }
@@ -41,9 +42,12 @@
                 <td>@obj.Description</td>
                 <td>@obj.Quantity</td>
                 <td>@obj.Price</td>
+                <td>
+                    <img src="@(obj.ImageUrl)" alt="@(obj.ProductName)" style="width:80px;height:75px"/>
+                </td>
                 @if(user == "Admin" || user == "SuperAdmin"){
                 <td>
-                    <div class="w-75">
+                    <div class="w-100">
                         <a asp-controller="Product" asp-action="EditProduct" asp-route-id="@obj.Id" class="btn btn-sm btn-warning">Edit</a>
                         <a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@obj.Id" class="btn btn-sm btn-danger">Delete</a>
 

@@ -47,10 +47,10 @@
                 {
                         <td>
                             <div class="w-100">
-                            <a asp-controller="Order" asp-action="PayNow" asp-route-id="@obj.Id" class="btn btn-sm btn-success">Pay Now</a>
+                           @*  <a asp-controller="Order" asp-action="PayNow" asp-route-id="@obj.Id" class="btn btn-sm btn-success">Pay Now</a>
                             <a asp-controller="Order" asp-action="Cancel" asp-route-id="@obj.Id" class="btn btn-sm btn-info">Cancel</a>
-
-                            @*  @if(obj.OrderStatus == OrderStatus.paymentreceived)
+ *@
+                             @if(obj.OrderStatus == OrderStatus.paymentreceived)
                                 {
                                 <a asp-controller="Order" asp-action="Cancel" asp-route-id="@obj.Id" class="btn btn-sm btn-info">Cancel</a>
                                 }
@@ -58,7 +58,7 @@
                                 {
                                     <a asp-controller="Order" asp-action="PayNow" asp-route-id="@obj.Id" class="btn btn-sm btn-success">Pay Now</a>
                                     <a asp-controller="Order" asp-action="Cancel" asp-route-id="@obj.Id" class="btn btn-sm btn-info">Cancel</a>
-                                } *@
+                                }
                         </div>
                         </td>
                 }
