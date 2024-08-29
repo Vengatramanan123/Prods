@@ -236,8 +236,8 @@ namespace Prods.Controllers
         public async Task<IActionResult> SendOrderConfirmation(Order order)
         {
             // Set email details
-            string toEmail = "vengatramanan81@gmail.com";
-            string toName = "Venkat";
+            string toEmail = "YOUR_TO_MAIL";
+            string toName = "Name";
             string subject = $"Order Confirmation - Order #{order.OrderId}";
             string textContent = "Your order has been placed successfully.";
             string htmlContent = "<h3>Your order has been placed successfully.</h3>" ;

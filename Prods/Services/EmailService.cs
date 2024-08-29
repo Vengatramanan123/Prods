@@ -34,7 +34,7 @@ namespace Prods.Services
             // Create the message object
             var message = new JObject
     {
-        {"FromEmail", "thalavengat256@gmail.com"},
+        {"FromEmail", "YOUR_VERIFIED_MAIL_IN_MAILJET"},
         {"FromName", "Prods"},
         {"Recipients", new JArray
             {
