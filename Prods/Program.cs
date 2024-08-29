@@ -4,6 +4,7 @@ using Prods.Repository;
 using Prods.Repository.IRepository;
 using Prods.Utilites;
 using Stripe;
+using Prods.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IDashBoardRepository, DashBoardRepository>();
+builder.Services.AddScoped<EmailService>();
+builder.Services.Configure<MailjetSettings>(builder.Configuration.GetSection("Mailjet"));
 //builder.Services.AddSession();
 
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));

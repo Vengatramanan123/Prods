@@ -12,6 +12,7 @@ using Stripe;
 using Mailjet.Client;
 using Mailjet.Client.Resources;
 using Newtonsoft.Json.Linq;
+using Prods.Services;
 
 namespace Prods.Controllers
 {
@@ -19,10 +20,14 @@ namespace Prods.Controllers
     {
         private readonly IUnitOfWork _db;
         private readonly ApplicationDbContext _context;
-        public OrderController(IUnitOfWork db, ApplicationDbContext context)
+        private readonly IWebHostEnvironment _env;
+        private readonly EmailService _emailservice;
+        public OrderController(IUnitOfWork db, ApplicationDbContext context, IWebHostEnvironment env,EmailService emailservice)
         {
             _db = db;
             _context = context;
+            _env = env;
+            _emailservice = emailservice;
         }
 
         public IActionResult Index(int? id)
@@ -218,7 +223,7 @@ namespace Prods.Controllers
                     _db.Order.Update(order);
                     _db.Save();
 
-                    Email(order);
+                    SendOrderConfirmation(order);
                 }
 
                 return View("PaymentSuccess");
@@ -227,44 +232,29 @@ namespace Prods.Controllers
             return View("Error");
         }
 
-        public async Task<IActionResult> Email(Order order)
+        [HttpPost]
+        public async Task<IActionResult> SendOrderConfirmation(Order order)
         {
-            var Apikey = "5abeac05910ed3ba60e77134b466e735";
-            var ApiSecret = "2ba9eb92d99530ed784157d45e9640ec";
-            var client = new MailjetClient(Apikey, ApiSecret);
+            // Set email details
+            string toEmail = "vengatramanan81@gmail.com";
+            string toName = "Venkat";
+            string subject = $"Order Confirmation - Order #{order.OrderId}";
+            string textContent = "Your order has been placed successfully.";
+            string htmlContent = "<h3>Your order has been placed successfully.</h3>" ;
 
-            var request = new MailjetRequest
-            {
-                Resource = Send.Resource
-            }
-            .Property(Send.FromEmail, "thalavengat256@gmail.com")
-            .Property(Send.FromName, "Prods")
-            .Property(Send.Subject, $"Order Confirmation - Order #{order.Id}")
-            .Property(Send.HtmlPart, $"<strong>Hi,</strong> your payment for Order #{order.Id} has been successfully processed.")
-            .Property(Send.TextPart, $"Hi, your payment for Order #{order.Id} has been successfully processed.")
-            .Property(Send.Recipients, new JArray
-            {
-                new JObject
-                {
-                    {"Email", "vengatramanan81@gmail.com"},
-                    {"Name", "Vengat"}
-                }
-            });
+            
+            // Send the email with the attachment
+            var emailSent = await _emailservice.SendEmailAsync(toEmail, toName, subject, textContent, htmlContent);
 
-            var response = await client.PostAsync(request);
-
-            if (response.StatusCode != 200)
+            if (emailSent)
             {
-                Console.WriteLine($"Failed to send email: {response.GetErrorMessage()}");
-                // Handle the error as needed
-            }
-            else
-            {
-                Console.WriteLine("Email sent successfully!");
+                return View("Success"); 
             }
 
-            return View("Index");
+            return View("Error"); 
         }
-
     }
+
+
 }
+
