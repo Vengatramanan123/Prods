@@ -1,4 +1,4 @@
-🔸Prods (Order Management System):
+# Prods (Order Management System):
 
 The Prods Order Management System is a robust web application developed using ASP.NET Core, 
 with a SQL Server database managed through SQL Server Management Studio (SSMS). The system is designed to
